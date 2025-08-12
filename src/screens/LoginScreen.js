@@ -11,7 +11,7 @@ export default function LoginScreen({ navigation }) {
     try {
       const res = await api.post("/login", { email, password });
       await AsyncStorage.setItem("token", res.data.token);
-      navigation.replace("Feed");
+      navigation.replace("Liberum");
       console.log(res.data.token);
     } catch (err) {
       console.log(err);

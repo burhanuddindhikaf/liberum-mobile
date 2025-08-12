@@ -13,13 +13,15 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <GluestackUIProvider mode="light"><NavigationContainer>
+    <GluestackUIProvider mode="light">
+      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Feed" component={FeedScreen} />
+          <Stack.Screen name="Liberum" component={FeedScreen} />
           <Stack.Screen name="ThreadDetail" component={ThreadDetailScreen} />
         </Stack.Navigator>
-      </NavigationContainer></GluestackUIProvider>
+      </NavigationContainer>
+    </GluestackUIProvider>
   );
 }

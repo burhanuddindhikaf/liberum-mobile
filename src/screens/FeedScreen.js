@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text, TouchableOpacity } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import api from "../api";
+import PostCard from "@/components/PostCard";
+import { Pressable } from "react-native";
 
 export default function FeedScreen({ navigation }) {
   const [threads, setThreads] = useState([]);
@@ -9,11 +11,11 @@ export default function FeedScreen({ navigation }) {
     api
       .get("/threads")
       .then((res) => {
-        console.log(res.data); // Tambahkan ini
+        console.log(res.data);
         setThreads(res.data.data);
       })
       .catch((err) => {
-        console.log(err); // Tambahkan ini untuk cek error
+        console.log(err);
       });
   }, []);
 
@@ -22,16 +24,17 @@ export default function FeedScreen({ navigation }) {
       data={threads}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
-        <TouchableOpacity
+        <PostCard
+          avatarUrl={item.author?.avatar_url}
+          authorName={item.author?.name || "Unknown"}
+          title={item.title}
+          body={item.body}
+          date={item.created_at || "Unknown date"}
+          category={item.category?.name || "Uncategorized"}
           onPress={() => navigation.navigate("ThreadDetail", { id: item.id })}
-        >
-          <View style={{ padding: 10, borderBottomWidth: 1 }}>
-            <Text style={{ fontWeight: "bold" }}>{item.title}</Text>
-            <Text>{item.body}</Text>
-            <Text>By {item.author.name}</Text>
-          </View>
-        </TouchableOpacity>
+        />
       )}
+      contentContainerStyle={{ paddingVertical: 8 }}
     />
   );
 }

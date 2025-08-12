@@ -19,7 +19,7 @@ export default function RegisterScreen({ navigation }) {
         password_confirmation: passwordConfirm,
       });
       await AsyncStorage.setItem("token", res.data.token);
-      navigation.replace("Feed");
+      navigation.replace("Liberum");
     } catch (err) {
       setError(err.response?.data?.message || "Register gagal");
     }
