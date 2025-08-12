@@ -11,6 +11,8 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { HStack } from "@/components/ui/hstack";
+import { View } from "react-native";
+import { formatRelativeTime } from "../utils";
 
 interface PostCardProps {
   date: string;
@@ -63,19 +65,20 @@ export default function PostCard({
             </Pressable>
           )}
         </HStack>
-
         {/* Title */}
-        <Heading size="md" className="mb-2">
-          {title}
-        </Heading>
-
+        {title && (
+          <Heading size="md" className="mb-2">
+            {title}
+          </Heading>
+        )}
         {/* Body (hapus HTML tag) */}
         <Text size="sm" className="mb-3">
           {body.replace(/<[^>]+>/g, "")}
         </Text>
-
         {/* Date */}
-        <Text className="text-xs text-typography-500">{date}</Text>
+        <Text style={{ color: "gray", marginTop: 6 }}>
+          {formatRelativeTime(date)}
+        </Text>
       </Card>
     </Pressable>
   );
