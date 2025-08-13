@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import api from "../api";
 import PostCard from "@/components/PostCard";
+import BottomNavbar from "@/components/BottomNavbar";
 
 export default function FeedScreen({ navigation }) {
   const [threads, setThreads] = useState([]);
@@ -21,7 +22,6 @@ export default function FeedScreen({ navigation }) {
         setThreads((prev) => [...prev, ...newData]);
       }
 
-      // Jika jumlah data yang diambil lebih sedikit dari per_page → berarti sudah habis
       if (newData.length === 0 || newData.length < res.data.per_page) {
         setHasMore(false);
       }
@@ -52,26 +52,34 @@ export default function FeedScreen({ navigation }) {
   };
 
   return (
-    <FlatList
-      data={threads}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <PostCard
-          avatarUrl={item.author?.avatar_url}
-          authorName={item.author?.name || "Unknown"}
-          title={item.title}
-          body={item.body}
-          date={item.created_at || "Unknown date"}
-          category={item.category?.name || "Uncategorized"}
-          thumbnail_url={item.media?.[0]?.thumbnail_url || null}
-          onPress={() => navigation.navigate("ThreadDetail", { id: item.id })}
-        />
-      )}
-      contentContainerStyle={{ paddingVertical: 8 }}
-      refreshing={refreshing}
-      onRefresh={handleRefresh}
-      onEndReached={handleLoadMore}
-      onEndReachedThreshold={0.5} // Load lebih cepat saat mendekati bawah
-    />
+    <View>
+      <FlatList
+        data={threads}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <PostCard
+            avatarUrl={item.author?.avatar_url}
+            authorName={item.author?.name || "Unknown"}
+            title={item.title}
+            body={item.body}
+            date={item.created_at || "Unknown date"}
+            category={item.category?.name || "Uncategorized"}
+            thumbnail_url={item.media?.[0]?.thumbnail_url || null}
+            onPress={() => navigation.navigate("ThreadDetail", { id: item.id })}
+          />
+        )}
+        contentContainerStyle={{
+          paddingVertical: 8,
+          paddingBottom: 80, // supaya tidak ketutupan navbar
+        }}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.5}
+      />
+
+      {/* Bottom Navbar */}
+      <BottomNavbar />
+    </View>
   );
 }

@@ -43,7 +43,7 @@ export default function PostCard({
 
   return (
     <Pressable onPress={onPress} android_ripple={{ color: "#ddd" }}>
-      <Card className="p-5 rounded-lg max-w-[360px] m-3">
+      <Card className="p-5 rounded-lg  m-3">
         {/* Avatar + Nama Author */}
         <HStack className="items-center mb-3 justify-between">
           <HStack className="items-center">
