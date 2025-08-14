@@ -4,17 +4,25 @@ import { HStack, Button, Icon, ButtonText } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import DrawerMenu from "./DrawerMenu"; // pastikan path benar
+import { filteredFeed } from "../src/api"; // pastikan fungsi ini ada di api.js
 
-export default function BottomNavbar() {
+export default function BottomNavbar({ onCategorySelect }) {
   const navigation = useNavigation();
   const [showDrawer, setShowDrawer] = React.useState(false);
 
   return (
     <>
-      {/* Drawer Custom */}
-      <DrawerMenu isOpen={showDrawer} onClose={() => setShowDrawer(false)} />
+      <DrawerMenu
+        isOpen={showDrawer}
+        onClose={() => setShowDrawer(false)}
+        onCategorySelect={(category) => {
+          if (typeof onCategorySelect === "function") {
+            onCategorySelect(category); // panggil fungsi dari FeedScreen
+          }
+          setShowDrawer(false);
+        }}
+      />
 
-      {/* Bottom Nav */}
       <HStack
         bg="$backgroundLight0"
         px="$11"

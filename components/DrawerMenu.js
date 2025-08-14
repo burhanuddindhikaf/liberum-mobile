@@ -10,27 +10,31 @@ import {
 } from "@/components/ui/drawer";
 import { Heading } from "@/components/ui/heading";
 import { Button, ButtonText } from "@/components/ui/button";
-import { ScrollView } from "react-native"; // Supaya bisa scroll kalau kategori banyak
-import api from "../src/api"; // Pastikan path ini sesuai dengan struktur project Anda
-import { B } from "@expo/html-elements";
+import { ScrollView } from "react-native";
+import api from "../src/api";
 
-export default function DrawerMenu({ isOpen, onClose }) {
+export default function DrawerMenu({ isOpen, onClose, onCategorySelect }) {
   const [categories, setCategories] = useState([]);
+  console.log("DrawerMenu file ini dipakai!");
+  console.log("Props DrawerMenu:", {
+    isOpen,
+    onClose,
+    onCategorySelectType: typeof onCategorySelect,
+  });
 
   useEffect(() => {
     if (isOpen) {
       const fetchData = async () => {
         try {
-          const res = await api.get("/categories"); // Panggil API
+          const res = await api.get("/categories");
           if (res.data?.data) {
-            setCategories(res.data.data); // Simpan data ke state
+            setCategories(res.data.data);
           }
         } catch (err) {
           console.error("Error fetching categories:", err);
         }
       };
-
-      fetchData(); // Panggil fungsi
+      fetchData();
     }
   }, [isOpen]);
 
@@ -44,32 +48,25 @@ export default function DrawerMenu({ isOpen, onClose }) {
         </DrawerHeader>
         <DrawerBody>
           <ScrollView>
+            {/* Tombol Semua Thread */}
             <Button
               variant="outline"
               className="mb-3 border-0"
-              onPress={() => console.log("Kategori dipilih:", "Semua Thread")}
-              style={{
-                justifyContent: "flex-start", // tulisan ke kiri
-                marginLeft: 0,
-                paddingLeft: 0, // margin kiri untuk memberi jarak
-              }}
+              onPress={() => onCategorySelect(null)}
+              style={{ justifyContent: "flex-start", paddingLeft: 0 }}
             >
               <ButtonText>Semua Thread</ButtonText>
             </Button>
+
+            {/* Daftar kategori dari API */}
             {categories.length > 0 ? (
               categories.map((category) => (
                 <Button
                   key={category.id}
                   variant="outline"
                   className="mb-3 border-0"
-                  onPress={() =>
-                    console.log("Kategori dipilih:", category.name)
-                  }
-                  style={{
-                    justifyContent: "flex-start", // tulisan ke kiri
-                    marginLeft: 0,
-                    paddingLeft: 0, // margin kiri untuk memberi jarak
-                  }}
+                  onPress={() => onCategorySelect(category.id)}
+                  style={{ justifyContent: "flex-start", paddingLeft: 0 }}
                 >
                   <ButtonText>{category.name}</ButtonText>
                 </Button>
