@@ -20,19 +20,23 @@ export default function FeedScreen({ navigation }) {
   const fetchThreads = async (page = 1, reset = false, categoryId = null) => {
     try {
       let url = `/threads?page=${page}`;
-      if (categoryId) {
-        url += `&category_id=${categoryId}`;
-      }
+      if (categoryId) url += `&category_id=${categoryId}`;
 
       const res = await api.get(url);
       const newData = Array.isArray(res.data.data) ? res.data.data : [];
 
-      setThreads(reset ? newData : [...threads, ...newData]);
-      setCurrentPage(page);
+      setThreads((prev) => (reset ? newData : [...prev, ...newData]));
+      setPage(page); // update page saat load
+      setHasMore(newData.length > 0);
     } catch (error) {
       console.error(error);
     }
   };
+
+  // Panggil saat komponen mount
+  useEffect(() => {
+    fetchThreads(1, true, selectedCategory);
+  }, []);
 
   // Panggil saat kategori berubah
   useEffect(() => {

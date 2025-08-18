@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import DrawerMenu from "./DrawerMenu"; // pastikan path benar
 import { filteredFeed } from "../src/api"; // pastikan fungsi ini ada di api.js
+import AddThreadScreen from "../src/screens/AddThreadScreen"; // pastikan path benar
 
 export default function BottomNavbar({ onCategorySelect }) {
   const navigation = useNavigation();
