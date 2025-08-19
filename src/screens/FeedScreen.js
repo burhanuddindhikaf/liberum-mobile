@@ -86,7 +86,7 @@ export default function FeedScreen({ navigation }) {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <PostCard
-            avatarUrl={item.author?.avatar_url}
+            avatarUrl={item.author?.profile_photo_url}
             authorName={item.author?.name || "Unknown"}
             title={item.title}
             body={item.body}

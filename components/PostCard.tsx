@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { Pressable, Image } from "react-native";
+import React, { Component, useEffect } from "react";
+import { Pressable } from "react-native";
+import { Image } from "@/components/ui/image";
 import {
   Avatar,
   AvatarFallbackText,
@@ -10,6 +11,7 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { HStack } from "@/components/ui/hstack";
 import { formatRelativeTime } from "../utils";
+import userpng from "../assets/user.png"; // Pastikan path ini benar
 
 interface PostCardProps {
   date: string;
@@ -39,6 +41,7 @@ export default function PostCard({
   // Debug: cek URL gambar
   useEffect(() => {
     console.log("Thumbnail URL:", thumbnail_url);
+    console.log("Avatar URL:", avatarUrl);
   }, [thumbnail_url]);
 
   return (
@@ -53,12 +56,8 @@ export default function PostCard({
                   {avatarInitials || authorName.slice(0, 2).toUpperCase()}
                 </Text>
               </AvatarFallbackText>
-              {avatarUrl && (
-                <AvatarImage
-                  source={{ uri: avatarUrl }}
-                  alt={`${authorName} avatar`}
-                />
-              )}
+
+              <AvatarImage source={userpng} alt={`${authorName} avatar`} />
             </Avatar>
             <Heading size="sm">{authorName}</Heading>
           </HStack>

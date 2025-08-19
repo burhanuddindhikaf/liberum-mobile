@@ -11,6 +11,7 @@ import RegisterScreen from "./src/screens/RegisterScreen";
 import FeedScreen from "./src/screens/FeedScreen";
 import ThreadDetailScreen from "./src/screens/ThreadDetailScreen";
 import AddThreadScreen from "./src/screens/AddThreadScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ export default function App() {
             <Stack.Screen name="Liberum" component={FeedScreen} />
             <Stack.Screen name="ThreadDetail" component={ThreadDetailScreen} />
             <Stack.Screen name="AddThread" component={AddThreadScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "feed-mobile",
-    "slug": "feed-mobile",
+    "name": "Liberum",
+    "slug": "Liberum",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,10 +20,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.burhanuddindhikaf.Liberum"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "626715cd-75b2-4dfb-8dc7-59ec75dd08f4"
+      }
     }
   }
 }
